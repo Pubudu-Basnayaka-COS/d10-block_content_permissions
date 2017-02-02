@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Block content permissions module.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function block_content_permissions_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  // Disallow operation access to entity based on user's permissions.
+  switch ($operation) {
+    case 'delete':
+    case 'update':
+      // Get block content type.
+      $bundle_type = $entity->bundle();
+      // Check permissions for block content.
+      // Negate to hide operation link.
+      return AccessResult::forbiddenIf(!(
+        $account->hasPermission('administer block content') &&
+        $account->hasPermission("$operation any $bundle_type block content")
+        ));
+  }
+}
