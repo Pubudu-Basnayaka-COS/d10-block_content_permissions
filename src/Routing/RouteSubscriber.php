@@ -36,19 +36,36 @@ class RouteSubscriber extends RouteSubscriberBase {
       }
     }
 
-    // Change access callback for the block content type pages and forms.
-    $routeNames = array(
-      'block_content.add_page',
-      'block_content.add_form',
-      'entity.block_content.canonical',
-      'entity.block_content.delete_form',
-    );
-    foreach ($routeNames as $name) {
-      if ($route = $collection->get($name)) {
-        $route->addRequirements(array(
-          '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAdministerAccess',
-        ));
-      }
+    /* Change access callback for the block content collection page. */
+    /* "entity.block_content.collection" route name does not work. */
+
+    // Change access callback for the block content add page.
+    if ($route = $collection->get('block_content.add_page')) {
+      $route->addRequirements(array(
+        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddPageAccess',
+      ));
+    }
+
+    // Change access callback for the block content add forms.
+    if ($route = $collection->get('block_content.add_form')) {
+      $route->addRequirements(array(
+        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddFormAccess',
+      ));
+    }
+
+    // Change access callback for the block content edit forms.
+    // "entity.block_content.edit_form" route name does not work.
+    if ($route = $collection->get('entity.block_content.canonical')) {
+      $route->addRequirements(array(
+        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentEditFormAccess',
+      ));
+    }
+
+    // Change access callback for the block content delete forms.
+    if ($route = $collection->get('entity.block_content.delete_form')) {
+      $route->addRequirements(array(
+        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentDeleteFormAccess',
+      ));
     }
   }
 
