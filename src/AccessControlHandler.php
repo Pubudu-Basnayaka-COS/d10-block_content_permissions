@@ -97,7 +97,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
    * Access check for the block content type administer pages and forms.
    *
    * @return Drupal\Core\Access\AccessResult
-   *    An access result.
+   *   An access result.
    */
   public function blockContentTypeAdministerAccess() {
     $account = $this->currentUser();
@@ -108,7 +108,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
    * Access check for the block content add page.
    *
    * @return Drupal\Core\Access\AccessResult
-   *    An access result.
+   *   An access result.
    */
   public function blockContentAddPageAccess() {
     $orPermissions = array();
@@ -124,7 +124,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
    * Access check for the block content add forms.
    *
    * @return Drupal\Core\Access\AccessResult
-   *    An access result.
+   *   An access result.
    */
   public function blockContentAddFormAccess() {
     if ($block_content_type = $this->currentRouteMatch->getParameter('block_content_type')) {
@@ -142,7 +142,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
    * Access check for the block content edit forms.
    *
    * @return Drupal\Core\Access\AccessResult
-   *    An access result.
+   *   An access result.
    */
   public function blockContentEditFormAccess() {
     if ($block_content = $this->currentRouteMatch->getParameter('block_content')) {
@@ -160,7 +160,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
    * Access check for the block content delete forms.
    *
    * @return Drupal\Core\Access\AccessResult
-   *    An access result.
+   *   An access result.
    */
   public function blockContentDeleteFormAccess() {
     if ($block_content = $this->currentRouteMatch->getParameter('block_content')) {
