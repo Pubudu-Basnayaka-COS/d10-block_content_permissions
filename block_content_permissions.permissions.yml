@@ -1,7 +1,3 @@
-administer block content:
-  title: 'Administer block content'
-  description: 'Perform create, edit, and delete tasks across all block content types.'
-  restrict access: true
 administer block content types:
   title: 'Administer block content types'
   description: 'Maintain the types of block content available.'

@@ -116,8 +116,7 @@ class AccessControlHandler implements ContainerInjectionInterface {
       $orPermissions[] = "create $bundle_type block content";
     }
     $account = $this->currentUser();
-    return AccessResult::allowedIfHasPermission($account, 'administer block content')
-      ->andIf(AccessResult::allowedIfHasPermissions($account, $orPermissions, 'OR'));
+    return AccessResult::allowedIfHasPermissions($account, $orPermissions, 'OR');
   }
 
   /**
@@ -131,7 +130,6 @@ class AccessControlHandler implements ContainerInjectionInterface {
       $bundle_type = $block_content_type->get('id');
       $account = $this->currentUser();
       return AccessResult::allowedIfHasPermissions($account, array(
-        'administer block content',
         "create $bundle_type block content",
       ));
     }
@@ -149,7 +147,6 @@ class AccessControlHandler implements ContainerInjectionInterface {
       $bundle_type = $block_content->bundle();
       $account = $this->currentUser();
       return AccessResult::allowedIfHasPermissions($account, array(
-        'administer block content',
         "update any $bundle_type block content",
       ));
     }
@@ -167,7 +164,6 @@ class AccessControlHandler implements ContainerInjectionInterface {
       $bundle_type = $block_content->bundle();
       $account = $this->currentUser();
       return AccessResult::allowedIfHasPermissions($account, array(
-        'administer block content',
         "delete any $bundle_type block content",
       ));
     }

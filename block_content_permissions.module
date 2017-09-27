@@ -23,7 +23,6 @@ function block_content_permissions_block_content_access(EntityInterface $entity,
       // Check permissions for block content.
       // Negate to hide operation link.
       return AccessResult::forbiddenIf(!(
-        $account->hasPermission('administer block content') &&
         $account->hasPermission("$operation any $bundle_type block content")
         ));
   }
