@@ -14,17 +14,25 @@ use Drupal\views\ViewExecutable;
  * Implements hook_ENTITY_TYPE_access().
  */
 function block_content_permissions_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
-  // Disallow operation access to entity based on user's permissions.
   switch ($operation) {
     case 'delete':
     case 'update':
       // Get block content type.
       $bundle_type = $entity->bundle();
-      // Check permissions for block content.
-      // Negate to hide operation link.
-      return AccessResult::forbiddenIf(!(
-        $account->hasPermission("$operation any $bundle_type block content")
-        ));
+      // Check operation permission for block content.
+      return AccessResult::allowedIfHasPermission($account, "$operation any $bundle_type block content");
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function block_content_permissions_block_content_type_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  switch ($operation) {
+    case 'delete':
+    case 'update':
+      // Check administer permission for block content types.
+      return AccessResult::allowedIfHasPermission($account, "administer block content types");
   }
 }
 

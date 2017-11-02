@@ -3,6 +3,7 @@
 namespace Drupal\block_content_permissions\Routing;
 
 use Drupal\Core\Routing\RouteSubscriberBase;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
@@ -33,6 +34,11 @@ class RouteSubscriber extends RouteSubscriberBase {
         $route->addRequirements([
           '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentTypeAdministerAccess',
         ]);
+        // Remove required "administer blocks" permission.
+        // Did not grant access through route for following, use hook:
+        // - "entity.block_content_type.edit_form".
+        // - "entity.block_content_type.delete_form".
+        $this->removePermissionRequirement($route);
       }
     }
 
@@ -44,6 +50,8 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->addRequirements([
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddPageAccess',
       ]);
+      // Remove required "administer blocks" permission.
+      $this->removePermissionRequirement($route);
     }
 
     // Change access callback for the block content add forms.
@@ -51,6 +59,8 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->addRequirements([
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddFormAccess',
       ]);
+      // Remove required "administer blocks" permission.
+      $this->removePermissionRequirement($route);
     }
 
     // Change access callback for the block content edit forms.
@@ -59,6 +69,9 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->addRequirements([
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentEditFormAccess',
       ]);
+      // Remove required "administer blocks" permission.
+      // Did not grant access through route, use hook.
+      $this->removePermissionRequirement($route);
     }
 
     // Change access callback for the block content delete forms.
@@ -66,6 +79,23 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->addRequirements([
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentDeleteFormAccess',
       ]);
+      // Remove required "administer blocks" permission.
+      // Did not grant access through route, use hook.
+      $this->removePermissionRequirement($route);
+    }
+  }
+
+  /**
+   * Remove required "administer blocks" permission from route.
+   *
+   * @param \Symfony\Component\Routing\Route $route
+   *   The Route object.
+   */
+  private function removePermissionRequirement(Route $route) {
+    if ($route->hasRequirement('_permission')) {
+      $requirements = $route->getRequirements();
+      unset($requirements['_permission']);
+      $route->setRequirements($requirements);
     }
   }
 
