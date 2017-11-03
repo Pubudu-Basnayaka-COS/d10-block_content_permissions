@@ -4,7 +4,7 @@ administer block content types:
   restrict access: true
 view restricted block content:
   title: 'View restricted block content'
-  description: 'View restricted block content that the user cannot manage on the <em>Custom block library</em> page.'
+  description: 'View full list on the Block Content overview page ignoring the create/update/delete filter.'
 
 permission_callbacks:
   - Drupal\block_content_permissions\Permissions::get

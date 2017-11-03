@@ -40,8 +40,8 @@ function block_content_permissions_block_content_type_access(EntityInterface $en
  * Implements hook_views_post_build().
  */
 function block_content_permissions_views_post_build(ViewExecutable $view) {
-  // If user cannot "view restricted block content", restrict block_content
-  // view page to block content the user can create, edit or delete.
+  // If user cannot "view restricted block content", filter block_content view
+  // to only include block content the user can create, edit or delete.
   if ($view->id() == 'block_content') {
     $account = $view->getUser();
 
