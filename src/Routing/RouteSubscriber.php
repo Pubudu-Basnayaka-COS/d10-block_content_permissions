@@ -45,11 +45,15 @@ class RouteSubscriber extends RouteSubscriberBase {
     /* Change access callback for the block content collection page. */
     /* "entity.block_content.collection" route name does not work. */
 
-    // Change access callback for the block content add page.
+    // Change access and controller callback for the block content add page.
     if ($route = $collection->get('block_content.add_page')) {
       $route->addRequirements([
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddPageAccess',
       ]);
+      $route->setDefault(
+        '_controller',
+        'Drupal\block_content_permissions\Controller\BlockContentPermissionsAddPageController::add'
+      );
       // Remove required "administer blocks" permission.
       $this->removePermissionRequirement($route);
     }
