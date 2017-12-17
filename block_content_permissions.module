@@ -51,6 +51,22 @@ function block_content_permissions_block_content_type_access(EntityInterface $en
 }
 
 /**
+ * Implements hook_views_pre_build().
+ */
+function block_content_permissions_views_pre_build(ViewExecutable $view) {
+  switch ($view->storage->id()) {
+    // On the block content listing page, the "Block Description" column has
+    // "edit" links that always show regardless of permission. Remove the links
+    // to force use of the managed "Operations" column links.
+    case 'block_content':
+      if (!empty($view->field['info']->options['settings']['link_to_entity'])) {
+        $view->field['info']->options['settings']['link_to_entity'] = FALSE;
+      }
+      break;
+  }
+}
+
+/**
  * Implements hook_views_query_alter().
  */
 function block_content_permissions_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
