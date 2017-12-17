@@ -21,8 +21,20 @@ function block_content_permissions_block_content_access(EntityInterface $entity,
       // Get block content type.
       $bundle_type = $entity->bundle();
       // Check operation permission for block content.
-      return AccessResult::allowedIfHasPermission($account, "$operation any $bundle_type block content");
+      if ($account->hasPermission("$operation any $bundle_type block content")) {
+        return AccessResult::allowed();
+      }
+      else {
+        // Forbid to remove operation links.
+        // Only do on block content listing and edit pages.
+        switch (\Drupal::routeMatch()->getRouteName()) {
+          case 'entity.block_content.collection':
+          case 'entity.block_content.canonical':
+            return AccessResult::forbidden();
+        }
+      }
   }
+  return AccessResult::neutral();
 }
 
 /**
@@ -33,8 +45,9 @@ function block_content_permissions_block_content_type_access(EntityInterface $en
     case 'delete':
     case 'update':
       // Check administer permission for block content types.
-      return AccessResult::allowedIfHasPermission($account, "administer block content types");
+      return AccessResult::allowedIfHasPermission($account, 'administer block content types');
   }
+  return AccessResult::neutral();
 }
 
 /**
