@@ -25,13 +25,8 @@ function block_content_permissions_block_content_access(EntityInterface $entity,
         return AccessResult::allowed();
       }
       else {
-        // Forbid to remove operation links.
-        // Only do on block content listing and edit pages.
-        switch (\Drupal::routeMatch()->getRouteName()) {
-          case 'entity.block_content.collection':
-          case 'entity.block_content.canonical':
-            return AccessResult::forbidden();
-        }
+        // Forbid to remove operation link and disable "Quick Edit".
+        return AccessResult::forbidden();
       }
   }
   return AccessResult::neutral();
