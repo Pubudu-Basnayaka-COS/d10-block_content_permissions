@@ -69,13 +69,19 @@ class RouteSubscriber extends RouteSubscriberBase {
 
     // Change access callback for the block content edit forms.
     // "entity.block_content.edit_form" route name does not work.
-    if ($route = $collection->get('entity.block_content.canonical')) {
-      $route->addRequirements([
-        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentEditFormAccess',
-      ]);
-      // Remove required "administer blocks" permission.
-      // Did not grant access through route, use hook.
-      $this->removePermissionRequirement($route);
+    $routeNames = [
+      'entity.block_content.canonical',
+      'entity.block_content.edit_form',
+    ];
+    foreach ($routeNames as $name) {
+      if ($route = $collection->get($name)) {
+        $route->addRequirements([
+          '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentEditFormAccess',
+        ]);
+        // Remove required "administer blocks" permission.
+        // Did not grant access through route, use hook.
+        $this->removePermissionRequirement($route);
+      }
     }
 
     // Change access callback for the block content delete forms.
