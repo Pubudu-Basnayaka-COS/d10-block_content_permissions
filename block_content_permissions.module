@@ -25,7 +25,7 @@ function block_content_permissions_block_content_access(EntityInterface $entity,
         return AccessResult::allowed();
       }
       else {
-        // Forbid to remove operation link and disable "Quick Edit".
+        // Forbid access.
         return AccessResult::forbidden();
       }
   }
@@ -40,7 +40,13 @@ function block_content_permissions_block_content_type_access(EntityInterface $en
     case 'delete':
     case 'update':
       // Check administer permission for block content types.
-      return AccessResult::allowedIfHasPermission($account, 'administer block content types');
+      if ($account->hasPermission('administer block content types')) {
+        return AccessResult::allowed();
+      }
+      else {
+        // Forbid access.
+        return AccessResult::forbidden();
+      }
   }
   return AccessResult::neutral();
 }

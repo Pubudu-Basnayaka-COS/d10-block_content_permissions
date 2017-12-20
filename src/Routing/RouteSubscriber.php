@@ -22,12 +22,10 @@ class RouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   public function alterRoutes(RouteCollection $collection) {
-    // Change access callback for the block content type pages and forms.
+    // Change access callback for the block content type pages.
     $routeNames = [
       'entity.block_content_type.collection',
       'block_content.type_add',
-      'entity.block_content_type.edit_form',
-      'entity.block_content_type.delete_form',
     ];
     foreach ($routeNames as $name) {
       if ($route = $collection->get($name)) {
@@ -35,9 +33,6 @@ class RouteSubscriber extends RouteSubscriberBase {
           '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentTypeAdministerAccess',
         ]);
         // Remove required "administer blocks" permission.
-        // Did not grant access through route for following, use hook:
-        // - "entity.block_content_type.edit_form".
-        // - "entity.block_content_type.delete_form".
         $this->removePermissionRequirement($route);
       }
     }
@@ -64,33 +59,6 @@ class RouteSubscriber extends RouteSubscriberBase {
         '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentAddFormAccess',
       ]);
       // Remove required "administer blocks" permission.
-      $this->removePermissionRequirement($route);
-    }
-
-    // Change access callback for the block content edit forms.
-    // "entity.block_content.edit_form" route name does not work.
-    $routeNames = [
-      'entity.block_content.canonical',
-      'entity.block_content.edit_form',
-    ];
-    foreach ($routeNames as $name) {
-      if ($route = $collection->get($name)) {
-        $route->addRequirements([
-          '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentEditFormAccess',
-        ]);
-        // Remove required "administer blocks" permission.
-        // Did not grant access through route, use hook.
-        $this->removePermissionRequirement($route);
-      }
-    }
-
-    // Change access callback for the block content delete forms.
-    if ($route = $collection->get('entity.block_content.delete_form')) {
-      $route->addRequirements([
-        '_custom_access' => $this->AccessControlHandlerClassName . '::blockContentDeleteFormAccess',
-      ]);
-      // Remove required "administer blocks" permission.
-      // Did not grant access through route, use hook.
       $this->removePermissionRequirement($route);
     }
   }
