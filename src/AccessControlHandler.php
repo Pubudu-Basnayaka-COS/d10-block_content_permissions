@@ -134,34 +134,4 @@ class AccessControlHandler implements ContainerInjectionInterface {
     return AccessResult::neutral();
   }
 
-  /**
-   * Access check for the block content edit forms.
-   *
-   * @return \Drupal\Core\Access\AccessResult
-   *   An access result.
-   */
-  public function blockContentEditFormAccess() {
-    if ($block_content = $this->currentRouteMatch->getParameter('block_content')) {
-      $bundle_type = $block_content->bundle();
-      $account = $this->currentUser();
-      return AccessResult::allowedIfHasPermission($account, "update any $bundle_type block content");
-    }
-    return AccessResult::neutral();
-  }
-
-  /**
-   * Access check for the block content delete forms.
-   *
-   * @return \Drupal\Core\Access\AccessResult
-   *   An access result.
-   */
-  public function blockContentDeleteFormAccess() {
-    if ($block_content = $this->currentRouteMatch->getParameter('block_content')) {
-      $bundle_type = $block_content->bundle();
-      $account = $this->currentUser();
-      return AccessResult::allowedIfHasPermission($account, "delete any $bundle_type block content");
-    }
-    return AccessResult::neutral();
-  }
-
 }
