@@ -1,5 +1,5 @@
 name: Block Content Permissions
-description: 'Adds specific permissions for administering block content and block content types.'
+description: "Adds permissions for administering 'block content types' and 'block content'."
 package: Block
 type: module
 dependencies:
