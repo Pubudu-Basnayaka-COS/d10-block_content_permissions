@@ -14,29 +14,11 @@ INTRODUCTION
 ------------
 
 The Block Content Permissions module adds permissions for administering
-"block content types" and "block content" on the "Custom block library" pages:
+"block content types" and "block content". The "Administer blocks" permission
+normally manages these entities on the "Custom block library" pages:
 "Block types" and "Blocks".
 
-* **Administer block content types:**
-  Manage types and fields on "Block types" related pages.
-* **[*type*]: Create new block content:**
-  Add and view block content of a specific type.
-* **[*type*]: Delete any block content:**
-  Delete and view block content of a specific type.
-* **[*type*]: Edit any block content:**
-  Edit and view block content of a specific type.
-* **View restricted block content:**
-  View all types of block content, ignoring view restrictions.
-
-This module removes the required "Administer blocks" permission from most pages.
-
-* **2920739** - Remove "Administer blocks" permission from view page:
-  https://www.drupal.org/project/block_content_permissions/issues/2920739
-
-* **1975064** - Add permissions to core:
-  https://www.drupal.org/node/1975064
-
-* For a full description of the module visit:
+* For additional information on the module visit:
   https://www.drupal.org/project/block_content_permissions
 
 * To submit bug reports, suggest features, or track changes visit:
@@ -64,35 +46,71 @@ Install this module as you would normally install a contributed Drupal module.
 Visit https://www.drupal.org/node/1897420 for further information.
 
 
-
 CONFIGURATION
 -------------
 
-Configure permissions: Administration » People » Permissions.
+* Configure the user permissions in `Administration » People » Permissions`:
 
-Enable the "Block - Administer blocks" permission. **Warning:** This permission
-grants access to block pages not managed by this module. Use the recommended
-modules to further restrict access.
+  - Block - Administer blocks
 
-The "Blocks" page list is consolidated to manageable items. To override this
-behavior, enable the "View restricted block content" permission, which will not
-override the "Create", "Edit" and "Delete" restrictions.
+    (Required) Allows management of blocks. **Warning:** This permission grants
+    access to block pages not managed by this module. Use the recommended
+    modules to restrict the rest. Requirements for this permission have been
+    removed for most pages, so it is not required for some use cases. It is
+    still required for navigational purposes and the "Blocks" views page.
 
-Enable permissions for specific types:
-* Block Content Permissions - [*type*]: Create new block content
-* Block Content Permissions - [*type*]: Delete any block content
-* Block Content Permissions - [*type*]: Edit any block content
+  - Block Content Permissions - [*type*]: Create new block content
 
-Enable permissions for **trusted roles** (optional):
-* Block Content Permissions - Administer block content types
-* Field UI - Custom block: Administer display
-* Field UI - Custom block: Administer fields
-* Field UI - Custom block: Administer form display
+    (Optional) Create block content for a specific type. View on "Blocks" page.
 
-Enable permissions for theme and navigation (optional):
-* System - Use the administration pages and help
-* System - View the administration theme
-* Toolbar - Use the toolbar
+  - Block Content Permissions - [*type*]: Delete any block content
+
+    (Optional) Delete block content for a specific type. View on "Blocks" page.
+
+  - Block Content Permissions - [*type*]: Edit any block content
+
+    (Optional) Edit block content for a specific type. View on "Blocks" page.
+
+  - Block Content Permissions - Administer block content types
+
+    (Optional) Give to **trusted roles only**. Allows management of all block
+    content types. The "Field UI" permissions fully manage the displays, fields,
+    and form displays.
+
+  - Block Content Permissions - View restricted block content
+
+    (Optional) Allows viewing and searching of block content for all types.
+    Disabling this permission restricts the types to ones the user can manage.
+    This permission is only used on the "Blocks" views page and will not affect
+    the "Create", "Edit" and "Delete" restrictions. The views page requires the
+    "Administer blocks" permission.
+
+  - Field UI - Custom block: Administer display
+
+    (Optional) Give to **trusted roles only**. Allows management of displays for
+    all block content types.
+
+  - Field UI - Custom block: Administer fields
+
+    (Optional) Give to **trusted roles only**. Allows management of fields for
+    all block content types.
+
+  - Field UI - Custom block: Administer form display
+
+    (Optional) Give to **trusted roles only**. Allows management of form display
+    for all block content types.
+
+  - System - Use the administration pages and help
+
+    (Optional) Allows use of admin pages during navigation.
+
+  - System - View the administration theme
+
+    (Optional) Allows use of administrative theme for aesthetics.
+
+  - Toolbar - Use the toolbar
+
+    (Optional) Allows use of toolbar during navigation.
 
 
 TROUBLESHOOTING
@@ -142,4 +160,5 @@ List of pages that should deny access depending on permissions.
 MAINTAINERS
 -----------
 
+Current maintainers:
 * Joshua Roberson - https://www.drupal.org/u/joshuaroberson
