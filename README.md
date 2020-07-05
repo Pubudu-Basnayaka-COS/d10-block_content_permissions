@@ -118,43 +118,38 @@ TROUBLESHOOTING
 
 List of pages that should deny access depending on permissions.
 
-"Block types" pages ("Administer block content types" permission):
+**"Block types" pages ("Administer block content types" permission):**
 * **List:**
-  /admin/structure/block/block-content/types
+  - **Path:** /admin/structure/block/block-content/types
+  - **Route:** entity.block_content_type.collection
 * **Add:**
-  /admin/structure/block/block-content/types/add
+  - **Path:** /admin/structure/block/block-content/types/add
+  - **Route:** block_content.type_add
 * **Edit:**
-  /admin/structure/block/block-content/manage/[*type*]
+  - **Path:** /admin/structure/block/block-content/manage/{block_content_type}
+  - **Route:** entity.block_content_type.edit_form
 * **Delete:**
-  /admin/structure/block/block-content/manage/[*type*]/delete
+  - **Path:** /admin/structure/block/block-content/manage/{block_content_type}/delete
+  - **Route:** entity.block_content_type.delete_form
 
-"Block types" pages ("Field UI" permissions):
-* **Manage form display:**
-  /admin/structure/block/block-content/manage/[*type*]/form-display
-* **Manage display:**
-  /admin/structure/block/block-content/manage/[*type*]/display
-* **Manage fields:**
-  /admin/structure/block/block-content/manage/[*type*]/fields
-* **Add field:**
-  /admin/structure/block/block-content/manage/[*type*]/fields/add-field
-* **Field settings:**
-  /admin/structure/block/block-content/manage/[*type*]/fields/block_content.[*type*].field_[*field*]/storage
-* **Edit field:**
-  /admin/structure/block/block-content/manage/[*type*]/fields/block_content.[*type*].field_[*field*]
-* **Delete field:**
-  /admin/structure/block/block-content/manage/[*type*]/fields/block_content.[*type*].field_[*field*]/delete
-
-"Blocks" pages ("Create", "Delete", "Edit" and "View" permissions):
+**"Blocks" pages ("Create", "Delete", "Edit" and "View" permissions):**
 * **List:**
-  /admin/structure/block/block-content
+  - **Path:** /admin/structure/block/block-content
+  - **Route:** entity.block_content.collection
+  - **Route:** view.block_content.page_1
 * **Add:**
-  /block/add
+  - **Path:** /block/add
+  - **Route:** block_content.add_page
 * **Add type:**
-  /block/add/[*type*]
+  - **Path:** /block/add/{block_content_type}
+  - **Route:** block_content.add_form
 * **Edit:**
-  /block/[*block_content_id*]
+  - **Path:** /block/{block_content}
+  - **Route:** entity.block_content.canonical
+  - **Route:** entity.block_content.edit_form
 * **Delete:**
-  /block/[*block_content_id*]/delete
+  - **Path:** /block/{block_content}/delete
+  - **Route:** entity.block_content.delete_form
 
 
 MAINTAINERS
